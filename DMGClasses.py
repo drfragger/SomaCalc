@@ -5,7 +5,10 @@ from random import random
 
 
 class Weapon:
-    #TODO: Add Crit stats and status chance
+    '''
+    Class [Weapon]. Has methods get_elements (mostly internal),
+    get_dict, printDMG, getTotalDMG, Attack, DPSAgainst, BurstDPS, SustainedDPS
+    '''
     Imp = 0
     Punc = 0
     Sla = 0

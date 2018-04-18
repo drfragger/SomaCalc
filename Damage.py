@@ -1,23 +1,22 @@
 from Modifiers import *
 
 
-def NoArmorDMG(BaseDMG, DMGType, EnemyType, CritMult=1, BodyMult=1):
-    Modif = getattr(EnemyType, DMGType)
-    resultDMG = BaseDMG * Modif * CritMult * BodyMult
-    return resultDMG
 
-#Returns the armor value for the enemy at the specified level
 def EnemyArmorScale(BaseArmor, CurrentLevel, BaseLevel):
+    '''
+    Returns the armor value for the enemy at the specified level.
+    '''
     etc = 1 + (((CurrentLevel - BaseLevel)**1.75) * 0.005)
     result = BaseArmor * etc
     return result
 
 #Returns a DMGMod value for use in the ArmorDMG method
 def ArmorMod(DMGType, HealthType, ArmorType, Armor, CritMult=1, BodyMult=1):
-    #Format:
-    #Redux due to armor is the reciprocal of 1 + (Armor / 300), after Armor val is changed
-    #due to elemental factors.
-    #The redux is then multiplied by the product of all damage multipliers.  
+    '''
+    Redux due to armor is the reciprocal of 1 + (Armor / 300), after Armor val is changed
+    due to elemental factors.
+    The redux is then multiplied by the product of all damage multipliers.
+    '''
 
     HPMod = getattr(HealthType, DMGType)
     ARMod = getattr(ArmorType, DMGType)
@@ -28,7 +27,9 @@ def ArmorMod(DMGType, HealthType, ArmorType, Armor, CritMult=1, BodyMult=1):
     return result
 
 def ArmorDMG(BaseDMG, DMGMod):
-    #Note: DMGMod comes from ArmorMod
+    '''
+    Note: DMGMod comes from ArmorMod
+    '''
     result = BaseDMG * DMGMod
     return result
 
