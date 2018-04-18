@@ -28,8 +28,6 @@ class Weapon:
     Magazine = 60
     #In seconds
     Reload = 1
-    StatusChance = 0.15
-    BaseBullets = 1
 
     def __init__(self, name):
         self.Name = name
@@ -38,7 +36,7 @@ class Weapon:
         result = []
         for attr in dir(self):
             if not attr.startswith(("__", "CritMult", "CritChance", "FireRate", \
-                 "Bullets", "Magazine", "Reload", "Name", "StatusChance", "BaseBullets")):
+                 "Bullets", "Magazine", "Reload", "Name")):
                 value = getattr(self, attr)
                 if not callable(value):
                     result.append((attr, value))
