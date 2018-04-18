@@ -1,16 +1,11 @@
 from Modifiers import *
 from Damage import *
 from DMGClasses import Weapon, Enemy
-from ModClass import Mod
-from ModObjects import * 
-from WeaponObjects import *
-from EnemyObjects import *
 import matplotlib.pyplot as plt
 import numpy as np
-from random import random
-import math
 
-randgen = random()
+
+
 
 
 
@@ -57,7 +52,6 @@ def plotDamage(Tool:Weapon, Victim:Enemy, Tool2:Weapon=None, LevelRange=100):
 
 
 
-plotDamage(SomaPrime, CorruptGunner)
 
 
 
