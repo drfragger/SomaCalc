@@ -5,7 +5,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+DW = Weapon("DebugWeapon")
+DW.Imp = 50
+DW.Punc = 50
+DW.Sla = 50
 
+DE = Enemy(1, CFlesh, 100, Ferrite, 50) 
 
 
 
@@ -54,5 +59,5 @@ def plotDamage(Tool:Weapon, Victim:Enemy, Tool2:Weapon=None, LevelRange=100):
 
 
 
-print("THIS IS THE TEST BRANCH PLEASE IGNORE")
+plotDamage(DW, DE)
 

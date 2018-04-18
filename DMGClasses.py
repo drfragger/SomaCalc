@@ -78,7 +78,7 @@ class Weapon:
         for key in res:
 
             Redux = ArmorMod(key, Enemy.HPType, Enemy.ArmorType, Enemy.Armor, Crocket, BodyMult)
-            result += ArmorDMG(res[key], Redux) + ProcDMG
+            result += ArmorDMG(res[key], Redux)
 
         return result
 
