@@ -88,6 +88,11 @@ class Weapon:
             
             
     def DPSAgainst(self, theEnemy=None, isCrit=False):
+        '''
+        DPSAgainst(self, Enemy=None, isCrit=False)
+        Prints the Burst and Sustained DPS of a weapon.
+        Does not return a value; use returnBurst and returnSustained for that.
+        '''
 
         if theEnemy is not None:
             BurstDPS = returnBurst(theEnemy, isCrit=isCrit)
@@ -148,11 +153,8 @@ class Enemy:
             self.Armor = EnemyArmorScale(self.BaseArmor, self.Level, self.BaseLevel)
 
     def EHP(self):
-        DMGRedux = (1 - 300 / (300 + self.Armor) )
-        rdx = 1 - DMGRedux
-        EHP = self.HP / rdx
+        EHP = EffectiveHealth(self.HP, self.Armor)
         EHP = EHP + self.Shields
-            
         return EHP
 
     def printResistances(self):
@@ -187,6 +189,11 @@ class Enemy:
         print(minimum, ":", mydict[minimum])
 
     def addWeapon(self, theWeapon):
+        '''
+        Experimental. Not sure if it's worth keeping around.
+        Adds a DMG dict to the enemy based on the weapon given. Damage scales based on
+        current level.
+        '''
         self.DMG = {}
         etc = theWeapon.get_dict()
         for key in etc:

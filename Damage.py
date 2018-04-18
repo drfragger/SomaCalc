@@ -28,7 +28,7 @@ def ArmorMod(DMGType, HealthType, ArmorType, Armor, CritMult=1, BodyMult=1):
 
 def ArmorDMG(BaseDMG, DMGMod):
     '''
-    Note: DMGMod comes from ArmorMod
+    Note: DMGMod comes from ArmorMod.
     '''
     result = BaseDMG * DMGMod
     return result
@@ -39,6 +39,12 @@ def HealthScale(BaseHP, CurrentLevel, BaseLevel):
     return HP
 
 def EffectiveHealth(HP, Armor):
+    '''
+    EffectiveHealth(HP, Armor)
+    Calculates EHP based on current Health and Armor.
+    [Enemy] class has an EHP() method anyway, so this is
+    mostly for testing.
+    '''
     DMGRedux = (1 - 300/(300 + Armor))
     rdx = 1 - DMGRedux
     EHP = HP / rdx
