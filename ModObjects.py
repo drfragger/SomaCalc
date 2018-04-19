@@ -2,9 +2,9 @@ from Modifiers import *
 from ModClass import Mod
 import copy
 
-dmgTypes = ["Imp", "Punc", "Sla", "Cld", "Elec", "Ht", "Txn", "Blst", "Crsv", "Gas", "Mag", "Rad", "Vir"]
+_dmgTypes = ["Imp", "Punc", "Sla", "Cld", "Elec", "Ht", "Txn", "Blst", "Crsv", "Gas", "Mag", "Rad", "Vir"]
 
-Serration = Mod(dmgTypes, lambda x: x * 2.65, priority=1)
+Serration = Mod(_dmgTypes, lambda x: x * 2.65, priority=1)
 
 HeavyCaliber = copy.deepcopy(Serration)
 

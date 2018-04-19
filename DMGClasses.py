@@ -1,8 +1,6 @@
 from Modifiers import *
 from Damage import *
 from ModClass import Mod
-from RandoMethods import most_common
-from RandoMethods import weighted_random_by_dct as wrand
 from random import random
 import math
 
@@ -72,39 +70,9 @@ class Weapon:
     
     def Attack(self, Enemy, BodyMult=1, isCrit=False, includeProcs=False):
         
-        ##Shields are not accounted for because of how little of an effect they have.
+        #Shields are not accounted for because of how little of an effect they have.
 
-        randgen = random()
-
-        ProcDMG = 0
-
-        if includeProcs == True:
-
-            if randgen <= self.StatusChance:
-                ProcDict = self.PropProcChance()
-                ProcList = []
-                for i in range(100):
-                    ProcList.insert(0, wrand(ProcDict))
-
-                WhatProcced = most_common(ProcList)
-
-                for i in range(math.floor(self.Bullets)):
-                
-                    if WhatProcced == 'Sla':
-                        ProcDMG += self.SlashProc()
-
-                    if WhatProcced == 'Txn':
-                        ProcDMG += self.ToxinProc(Enemy)
-
-                    if WhatProcced == 'Ht':
-                        ProcDMG += self.HeatProc(Enemy)
-
-                    if WhatProcced == 'Vir':
-                        self.ViralProc(Enemy)
-
-                    #if WhatProcced == 'Crsv':
-                        #self.CorrosiveProc(Enemy)
-
+        
 
         if isCrit:
             Crocket = self.CritMult
@@ -122,7 +90,7 @@ class Weapon:
 
     
     def PowerUp(self, *themods):
-        Build = sorted(themods, key=lambda x: x.priority)
+        Build = sort(themods)
         for mod in Build:
             mod.modify(self)
             
