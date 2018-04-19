@@ -18,8 +18,7 @@ class Mod:
 								self.affectedstat,
 								self.priority)
 
-	def __cmp__(self, other):
-		if hasattr(other, 'priority'):
-			return self.priority.__cmp__(other.priority)
+	def __lt__(self, other):
+		return self.priority < other.priority
 
 
