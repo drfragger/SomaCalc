@@ -18,9 +18,21 @@ class Weapon:
                           'blst': blst, 'crsv': crsv, 'gas': gas, 'mag': mag,
                           'rad': rad, 'vir': vir}
               
-              self.stats = {'CritChance': critC, 'Crit Multiplier': critX,
+              self.stats = {'CritC': critC, 'CritX': critX,
                             'Magazine': magazine, 'Reload': reload, 'Firerate': firerate,
                             'Multishot': bullets}
+       
+       def getdmg(self, isCrit=False):
+              
+              if isCrit:
+                     chance = self.stats['CritC'] * 100
+                     mult = self.stats['CritX'] - 1
+                     percentinc = ((chance * mult) / 100) + 1
+                     return (sum(self.dmg.values())) * percentinc
+              else:
+                     return sum(self.dmg.values())
+                     
+                     
 
 
 
@@ -30,7 +42,5 @@ Braton = Weapon("Braton", imp=7.9, punc=7.9, sla=8.2,
                 critC=0.12, critX=1.6, magazine=60,
                 firerate=8.75)
 
-Braton.dmg['elec'] = 56
-print(Braton.dmg)
-                
-                    
+#Braton.dmg['elec'] = 56
+print(Braton.getdmg(isCrit=True))
