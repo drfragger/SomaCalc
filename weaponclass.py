@@ -18,11 +18,14 @@ class Weapon:
                           'blst': blst, 'crsv': crsv, 'gas': gas, 'mag': mag,
                           'rad': rad, 'vir': vir}
               
-              self.dmg = dict(self.basedmg)
               
-              self.stats = {'CritC': critC, 'CritX': critX,
+              self.basestats = {'CritC': critC, 'CritX': critX,
                             'Magazine': magazine, 'Reload': reload, 'Firerate': firerate,
                             'Multishot': bullets}
+              
+              self.dmg = dict(self.basedmg)
+              
+              self.stats = dict(self.basestats)
        
        def totaldmg(self, isCrit=False, getBase=False):
               
@@ -38,24 +41,29 @@ class Weapon:
        
        def applymod(self, build):
               
-              org_build = sorted(build, key=lambda x: x.isLast)
-              for mod in org_build:
-                     mod.effect(self)
+              if isinstance(build, tuple):
+                     org_build = sorted(build, key=lambda x: x.isLast)
+                     for mod in org_build:
+                            mod.effect(self)
+              else:
+                     build.effect(self)
                      
 
 
 
 
-mybuild = (mc.Serration, mc.FangedFusillade, mc.SawtoothClip, mc.Stormbringer, mc.HighVoltage)
+mybuild = mc.SpeedTrigger
 
 
 Braton = Weapon("Braton", imp=7.9, punc=7.9, sla=8.2,
                 critC=0.12, critX=1.6, magazine=60,
                 firerate=8.75)
 
-Braton.applymod(mybuild)
+print(Braton.stats)
 
 
+'''
 for x in Braton.dmg:
        if Braton.dmg[x] != 0:
               print(f'{x}: {Braton.dmg[x]}')
+'''

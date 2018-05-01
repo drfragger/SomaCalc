@@ -30,6 +30,12 @@ class Mod:
                 for elem in weapon_arg.dmg:
                     weapon_arg.dmg[elem] *= (1 + self.bonus)
         
+        if self.modtype == 'other':
+            weapon_arg.stats[self.stat] += weapon_arg.basestats[self.stat] * self.bonus
+
+
+
+
 
 Dummy = Mod('damage', 'All', 0)
 
@@ -38,5 +44,8 @@ FangedFusillade = Mod('damage', 'sla', 1.2)
 Stormbringer = Mod('damage', 'elec', 0.9)
 HighVoltage = Mod('damage', 'elec', 0.6)
 SawtoothClip = Mod('damage', 'sla', 0.3)
+
+SpeedTrigger = Mod('other', 'Firerate', 0.6)
+Shred = Mod('other', 'Firerate', 0.3)
                 
 
