@@ -1,4 +1,4 @@
-
+import modclass as mc
 
 
 class Weapon:
@@ -13,34 +13,49 @@ class Weapon:
               
               self.name = name
               
-              self.dmg = {'imp': imp, 'punc': punc, 'sla': sla,
+              self.basedmg = {'imp': imp, 'punc': punc, 'sla': sla,
                           'cld': cld, 'elec': elec, 'ht': ht, 'txn': txn,
                           'blst': blst, 'crsv': crsv, 'gas': gas, 'mag': mag,
                           'rad': rad, 'vir': vir}
+              
+              self.dmg = dict(self.basedmg)
               
               self.stats = {'CritC': critC, 'CritX': critX,
                             'Magazine': magazine, 'Reload': reload, 'Firerate': firerate,
                             'Multishot': bullets}
        
-       def getdmg(self, isCrit=False):
+       def totaldmg(self, isCrit=False, getBase=False):
+              
+              dmgdict = (self.dmg, self.basedmg)[getBase]
               
               if isCrit:
                      chance = self.stats['CritC'] * 100
                      mult = self.stats['CritX'] - 1
                      percentinc = ((chance * mult) / 100) + 1
-                     return (sum(self.dmg.values())) * percentinc
+                     return (sum(dmgdict.values())) * percentinc
               else:
-                     return sum(self.dmg.values())
+                     return sum(dmgdict.values())
+       
+       def applymod(self, build):
+              
+              org_build = sorted(build, key=lambda x: x.isLast)
+              for mod in org_build:
+                     mod.effect(self)
                      
-                     
 
 
 
+
+mybuild = (mc.Serration, mc.FangedFusillade, mc.SawtoothClip, mc.Stormbringer, mc.HighVoltage)
 
 
 Braton = Weapon("Braton", imp=7.9, punc=7.9, sla=8.2,
                 critC=0.12, critX=1.6, magazine=60,
                 firerate=8.75)
 
-#Braton.dmg['elec'] = 56
-print(Braton.getdmg(isCrit=True))
+Braton.applymod(mybuild)
+
+
+for x in Braton.dmg:
+       if Braton.dmg[x] != 0:
+              print(f'{x}: {Braton.dmg[x]}')
