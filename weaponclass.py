@@ -1,5 +1,5 @@
-import modclass as mc
-
+from bodytypes import *
+import damagefunctions as df
 
 class Weapon:
         
@@ -47,23 +47,25 @@ class Weapon:
                             mod.effect(self)
               else:
                      build.effect(self)
+       
+       def attack(self, entity, isCrit=False):
+              
+              crocket = (1, self.stats['CritX'])[isCrit]
+              
+              ret_val = 0
+              
+              for key in self.dmg:
+                     ret_val += df.damage(self.dmg[key], key, entity, crocket)
+              
+              return ret_val
+
+
+
                      
 
 
 
 
-mybuild = mc.SpeedTrigger
 
 
-Braton = Weapon("Braton", imp=7.9, punc=7.9, sla=8.2,
-                critC=0.12, critX=1.6, magazine=60,
-                firerate=8.75)
 
-print(Braton.stats)
-
-
-'''
-for x in Braton.dmg:
-       if Braton.dmg[x] != 0:
-              print(f'{x}: {Braton.dmg[x]}')
-'''
