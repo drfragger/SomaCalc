@@ -5,7 +5,7 @@ import enemyclass as ec
 
 def verify_enemy(func):
     def wrapper(entity):
-        assert isinstance(entity, ec.Enemy), f"Entity must be an ec.Enemy object, got {type(entity)} instead."
+        assert isinstance(entity, ec.Enemy), f"Entity must be an Enemy object, got {type(entity)} instead."
         return func(entity)
     
     return wrapper
@@ -47,5 +47,16 @@ def damage(wep_damage, element, entity, crit_mult=1):
     overall_redux = net_modifier / armor_redux
     
     return wep_damage * overall_redux
+
+
+
+def damage_mitigation(element, entity):
     
+    hp_modifier = getattr(entity.basetypes['hptype'], element)
+    armor_modifier = getattr(entity.basetypes['armortype'], element)
+    net_modifier = hp_modifier * armor_modifier
+    armor_redux = 1 + ((entity.props['armor'] * (2 - armor_modifier)) / 300)
+    overall_redux = net_modifier / armor_redux
+    
+    return overall_redux
     

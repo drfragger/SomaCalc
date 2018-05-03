@@ -11,4 +11,5 @@ Braton = Weapon("Braton", imp=7.9, punc=7.9, sla=8.2,
 Lancer = Enemy(1, CFlesh, 100, Ferrite, 100)
 
 
-print(Braton.attack(Lancer))
+
+print(Lancer.get_resistances())
