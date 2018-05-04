@@ -58,7 +58,32 @@ class Weapon:
                      ret_val += df.damage(self.dmg[key], key, entity, crocket)
               
               return ret_val
-
+       
+       
+       def get_dps(self, isCrit=False):
+              
+              burst = self.totaldmg(isCrit=isCrit) * self.stats['Multishot'] * self.stats['Firerate']
+              
+              time_elapsed = (self.stats['Magazine'] / self.stats['Firerate']) + self.stats['Reload']
+              sus_dmg_dealt = self.totaldmg(isCrit=isCrit) * self.stats['Multishot'] * self.stats['Magazine']
+              sustained = sus_dmg_dealt / time_elapsed
+              
+              return (burst, sustained)
+              
+              
+       
+       
+       
+       def get_sustained(self, victim, isCrit=False):
+              time_elapsed = (self.stats['Magazine'] / self.stats['Firerate']) + self.stats['Reload']
+              damage_dealt = self.attack(victim, isCrit) * self.stats['Multishot'] * self.stats['Magazine']
+              sustained = damage_dealt / time_elapsed
+              return sustained
+       
+       
+       def get_burst(self, victim, isCrit=False):
+              burst = self.attack(victim, isCrit) * self.stats['Multishot'] * self.stats['Firerate']
+              return burst       
 
 
                      
