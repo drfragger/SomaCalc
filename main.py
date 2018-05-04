@@ -2,6 +2,13 @@ from bodytypes import *
 from weaponclass import Weapon
 from enemyclass import Enemy
 from graph_function import plot_damage
+import modclass as mc
+
+
+def clean_print(arg):
+    for k, v in arg.items():
+        if v > 0:
+            print(k, ':', v)
 
 
 Braton = Weapon("Braton", imp=7.9, punc=7.9, sla=8.2,
@@ -15,5 +22,9 @@ Latron = Weapon("Latron", imp=8.3, punc=38.5, sla=8.2,
 
 Lancer = Enemy(1, CFlesh, 100, Ferrite, 100)
 
+
+mymods = (mc.Stormbringer, mc.InfectedClip, mc.Serration, mc.HighVoltage, mc.Hellfire)
+
+Braton.applymod(mymods)
 
 plot_damage(Braton, Lancer, wep_2 = Latron)

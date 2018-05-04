@@ -41,9 +41,16 @@ Dummy = Mod('damage', 'All', 0)
 
 Serration = Mod('damage', 'All', 1.65)
 FangedFusillade = Mod('damage', 'sla', 1.2)
-Stormbringer = Mod('damage', 'elec', 0.9)
+
 HighVoltage = Mod('damage', 'elec', 0.6)
 SawtoothClip = Mod('damage', 'sla', 0.3)
+
+Stormbringer = Mod('damage', 'elec', 0.9)
+InfectedClip = Mod('damage', 'txn', 0.9)
+Hellfire = Mod('damage', 'ht', 0.9)
+CryoRounds = Mod('damage', 'cld', 0.9)
+
+
 
 SpeedTrigger = Mod('other', 'Firerate', 0.6)
 Shred = Mod('other', 'Firerate', 0.3)

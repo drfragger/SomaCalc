@@ -45,8 +45,10 @@ class Weapon:
                      org_build = sorted(build, key=lambda x: x.isLast)
                      for mod in org_build:
                             mod.effect(self)
+                            self.update_elemental_combos()
               else:
                      build.effect(self)
+                     self.update_elemental_combos()
        
        def attack(self, entity, isCrit=False):
               
@@ -83,8 +85,42 @@ class Weapon:
        
        def get_burst(self, victim, isCrit=False):
               burst = self.attack(victim, isCrit) * self.stats['Multishot'] * self.stats['Firerate']
-              return burst       
-
+              return burst
+       
+       
+       def update_elemental_combos(self):
+              
+              blst_check = bool(self.dmg['blst'] or (self.dmg['ht'] and self.dmg['cld']))
+              crsv_check = bool(self.dmg['crsv'] or (self.dmg['txn'] and self.dmg['elec']))
+              gas_check = bool(self.dmg['gas'] or (self.dmg['txn'] and self.dmg['ht']))
+              mag_check = bool(self.dmg['mag'] or (self.dmg['cld'] and self.dmg['elec']))
+              rad_check = bool(self.dmg['rad'] or (self.dmg['ht'] and self.dmg['elec']))
+              vir_check = bool(self.dmg['vir'] or (self.dmg['cld'] and self.dmg['txn']))
+              
+              if blst_check:
+                     self.dmg['blst'] += self.dmg['ht'] + self.dmg['cld']
+                     self.dmg['ht'], self.dmg['cld'] = 0, 0
+              
+              if crsv_check:
+                     self.dmg['crsv'] += self.dmg['txn'] + self.dmg['elec']
+                     self.dmg['txn'], self.dmg['elec'] = 0, 0
+              
+              if gas_check:
+                     self.dmg['gas'] += self.dmg['ht'] + self.dmg['txn']
+                     self.dmg['ht'], self.dmg['txn'] = 0, 0  
+              
+              if mag_check:
+                     self.dmg['mag'] += self.dmg['cld'] + self.dmg['elec']
+                     self.dmg['elec'], self.dmg['cld'] = 0, 0
+              
+              if rad_check:
+                     self.dmg['rad'] += self.dmg['ht'] + self.dmg['elec']
+                     self.dmg['ht'], self.dmg['elec'] = 0, 0
+              
+              if vir_check:
+                     self.dmg['vir'] += self.dmg['txn'] + self.dmg['cld']
+                     self.dmg['txn'], self.dmg['cld'] = 0, 0
+                     
 
                      
 
