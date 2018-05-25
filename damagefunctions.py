@@ -28,7 +28,13 @@ def health_scaling(entity):
     b_level = entity.baseprops['baselevel']
     c_level = entity.level
     
-    return b_hp * (1 + (c_level - b_level)**2 * 0.015)
+    scale_type = entity.basetypes['hptype']
+    scale_modifier = 0.015      # Default for HP.
+    
+    if (scale_type is Shield) or (scale_type is PShield):
+        scale_modifier = 0.0075        # Default for Shields.
+    
+    return b_hp * (1 + (c_level - b_level)**2 * scale_modifier)
 
 
 

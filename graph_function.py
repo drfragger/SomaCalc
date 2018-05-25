@@ -9,7 +9,7 @@ def plot_damage(wep_1:Weapon, victim, wep_2:Weapon=None, level_range=100):
     
     domain = np.arange(victim.baseprops['baselevel'], level_range, 0.01)
     
-    dmg_sponge = Enemy(victim.baseprops['baselevel'],
+    dmg_sponge = Enemy(victim.name, victim.baseprops['baselevel'],
                        victim.basetypes['hptype'],
                        victim.baseprops['basehp'],
                        victim.basetypes['armortype'],
@@ -33,7 +33,7 @@ def plot_damage(wep_1:Weapon, victim, wep_2:Weapon=None, level_range=100):
 
 
     plt.ylabel("Burst")
-    plt.title("DPS Charts")
+    plt.title("DPS Graph for {}".format(victim.name))
     plt.legend()
     plt.grid(True)
 

@@ -5,9 +5,14 @@ import damagefunctions as df
 
 class Enemy:
     
-    def __init__(self, baselevel, hptype, basehp, armortype=Generic, basearmor=0, level=30):
+    def __init__(self, name, baselevel, hptype, basehp, armortype=Generic, basearmor=0, level=30):
+        '''
+        IMPORTANT NOTE: Shielded enemies should use a shield type for their HP type.
+        '''
         
         #Props = Properties
+        
+        self.name = name
         
         self.level = level
         
@@ -17,9 +22,8 @@ class Enemy:
         
         self.props = {'hp': df.health_scaling(self), 'armor': df.armor_scaling(self)}
     
-    
-    def get_ehp(self):
-        
+    @property
+    def ehp(self):
         armor_redux = 1 - (1 - 300 / (300 + self.props['armor']))
         return self.props['hp'] / armor_redux
     
@@ -31,6 +35,9 @@ class Enemy:
             entity_resistances.append((elem, el_res))
         
         return dict(entity_resistances)
+    
+    def __repr__(self):
+        return self.name
         
         
 
