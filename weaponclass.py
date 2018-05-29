@@ -9,7 +9,8 @@ class Weapon:
                     blst=0, crsv=0, gas=0, mag=0,
                     rad=0, vir=0,
                     critC=0.1, critX=2,
-                    magazine=60, reload=2, firerate=5, bullets=1):
+                    magazine=60, reload=2, firerate=5, bullets=1,
+                    chargetime=0):
               
               self.name = name
               
@@ -20,8 +21,10 @@ class Weapon:
               
               
               self.basestats = {'CritC': critC, 'CritX': critX,
-                            'Magazine': magazine, 'Reload': reload, 'Firerate': firerate,
-                            'Multishot': bullets}
+                            'Magazine': magazine, 'Reload': reload,
+                            'Firerate': firerate, 'Multishot': bullets,
+                            'Charge Time': chargetime}
+              
               
               self.dmg = dict(self.basedmg)
               
@@ -64,9 +67,14 @@ class Weapon:
        
        def get_dps(self, isCrit=False):
               
-              burst = self.totaldmg(isCrit=isCrit) * self.stats['Multishot'] * self.stats['Firerate']
+              real_fire_rate = self.stats['Firerate'] / (1 + self.stats['Charge Time'])
               
-              time_elapsed = (self.stats['Magazine'] / self.stats['Firerate']) + self.stats['Reload']
+              if self.stats['Firerate'] == 0:
+                     real_fire_rate = 1 / self.stats['Charge Time']
+       
+              burst = self.totaldmg(isCrit=isCrit) * self.stats['Multishot'] * real_fire_rate
+              
+              time_elapsed = (self.stats['Magazine'] / real_fire_rate) + self.stats['Reload']
               sus_dmg_dealt = self.totaldmg(isCrit=isCrit) * self.stats['Multishot'] * self.stats['Magazine']
               sustained = sus_dmg_dealt / time_elapsed
               
@@ -77,14 +85,26 @@ class Weapon:
        
        
        def get_sustained(self, victim, isCrit=False):
-              time_elapsed = (self.stats['Magazine'] / self.stats['Firerate']) + self.stats['Reload']
+              
+              real_fire_rate = self.stats['Firerate'] / (1 + self.stats['Charge Time'])
+              
+              if self.stats['Firerate'] == 0:
+                     real_fire_rate = 1 / self.stats['Charge Time']              
+              
+              time_elapsed = (self.stats['Magazine'] / real_fire_rate) + self.stats['Reload']
               damage_dealt = self.attack(victim, isCrit) * self.stats['Multishot'] * self.stats['Magazine']
               sustained = damage_dealt / time_elapsed
               return sustained
        
        
        def get_burst(self, victim, isCrit=False):
-              burst = self.attack(victim, isCrit) * self.stats['Multishot'] * self.stats['Firerate']
+              
+              real_fire_rate = self.stats['Firerate'] / (1 + self.stats['Charge Time'])
+              
+              if self.stats['Firerate'] == 0:
+                     real_fire_rate = 1 / self.stats['Charge Time']
+              
+              burst = self.attack(victim, isCrit) * self.stats['Multishot'] * real_fire_rate
               return burst
        
        
@@ -120,13 +140,4 @@ class Weapon:
               if vir_check:
                      self.dmg['vir'] += self.dmg['txn'] + self.dmg['cld']
                      self.dmg['txn'], self.dmg['cld'] = 0, 0
-                     
-
-                     
-
-
-
-
-
-
 
