@@ -6,16 +6,88 @@ how quickly a weapon will fall off at high levels.
 Its only external dependancies are [matplotlib](https://matplotlib.org/) and [numpy](http://www.numpy.org/).
 
 
-# Limitations
 
-- Currently, enemies cannot have shields applied to them. This is because shields have little to no effect on 
-enemy survivability, for the most part. The exeptions to this are the Eidolons and the Index opponents at high levels.
-As such, I will likely implement a shield system at a later date.
+# Syntax
 
-- Does not yet support melee weapons and weapons with unusual fire rates (i.e, Opticor, bows).
+### Weapons
+All damage type names are abbreviated, for ease of use.
+    
+    example_weapon = Weapon(name='example_weapon_name',
+                            imp=0, punc=0, sla=0,
+                            cld=0, elec=0, ht=0, txn=0,
+                            blst=0, crsv=0, gas=0, mag=0,
+                            rad=0, vir=0,
+                            critC=0.1, critX=2,
+                            magazine=60, reload=2, firerate=5, bullets=1,
+                            chargetime=0)
+
+### Enemies
+All armor, health, etc. types are constants defined in bodytypes.py.
+
+    example_enemy = Enemy(name='example_enemy',
+                    baselevel,
+                    hptype,
+                    basehp,
+                    armortype=Generic,
+                    basearmor=0,
+                    level=30)
+
+With my system, all enemies are techincally armored; unarmored enemies just have a neutral armor type
+and zero armor value.
+
+### Mods
+
+    example_mod = Mod( modtype, stat, bonus )
+    # modtype can have two different string values: 'damage' or 'other'.
+    # 'damage' affects damage stats. 'other' affects anything else.
+    # 'stat' can be property the weapon has, or 'all', which indicates a modification to all damage types.
+    
+    # Note: damage percent bonuses are converted to a multiplier.
+    # ex_0: Stormbringer( +90% Electric ) -> Mod('damage', 'elec', 0.9)
+    # ex_1: Serration( +160% Damage ) -> Mod('damage', 'All', 1.6)
+    
+    # Using on a weapon:
+    # ex_0 (single mod):
+    #       wep = Weapon(etc, etc, ..)
+    #       wep.applymod(example_mod)
+    
+    # ex_1 (multiple mods):
+    #       build = (example_mod_0, example_mod_1)          # Must be a tuple, not a list
+    #       wep = Weapon(etc, etc, ..)
+    #       wep.applymod(build)
+
+### Accessing database of weapons/enemies
+
+    with open('enemy_data.pickle', 'rb') as f:
+        enem = pickle.load(f)
+
+    with open('weapon_data.pickle', 'rb') as f:
+        wep = pickle.load(f)
+    
+    john_prodman = enem['C_PRODMAN']
+    
+    grakata = wep['GRAKATA']
+
+### Graphing DPS
+
+    plot_damage(weapon_0, enemy, weapon_1(optional), level_range=100)
+
+
+
+
+# Notes
+
+- Enemies with shields are broken up into two "sub enemies"; one with just the shields, 
+and the other with the health and armor. As such, damage calculations must be done on each part seperately.
+
+- Does not yet support melee weapons. May need to add new class for that.
 
 - Does not factor in status procs. Not sure if I'll ever manage to get this in reliably, but who knows.
 
-- I haven't set up all of the current weapons and mods yet, so you'll have to add them yourself.
+- I'm still not totally satisfied with the mod system yet, as it can't handle changing multiple stats and firerate with burst and charged weapons at the moment.
+
+- All primaries are currently saved in a pickle file. I'm getting around to doing the secondaries.
+I'll do the melee weapons once I've figured out how to accurately calculate their DPS.
+Also: Pickling works, but I'm unsure if I want to stick with the format.
 
 - I am an amateur. There may be bugs, although I haven't encountered anything.

@@ -451,5 +451,44 @@ primary_weapons.update(launcher_weapons)
 
 
 
-with open('weapon_data.pickle', 'wb') as f:
-    pickle.dump(primary_weapons, f)
+############################## Secondaries ###################################################################
+
+
+
+#################### Single Pistols ##########################
+
+ACRID = Weapon('ACRID', txn=35, critC=0.05, critX=2,
+  magazine=15, reload=1.2, firerate=6.67)
+
+ANGSTRUM = Weapon('ANGSTRUM', blst=1350, critC=0.22, critX=2,
+  magazine=3, reload=2.5, firerate=2, chargetime=1.5)
+PRISMA_ANGSTRUM = Weapon('PRISMA_ANGSTRUM', blst=1350, critC=0.26, critX=2.2,
+  magazine=3, reload=1.8, firerate=2, chargetime=0.6)
+
+ARCA_SCISCO = Weapon('ARCA_SCISCO', punc=36, sla=24, critC=0.18, critX=1.6,
+  magazine=36, reload=2.2, firerate=4.667)
+
+AZIMA = Weapon('AZIMA', 2, 5, 13, critC=0.16, critX=2,
+  magazine=75, reload=1.4, firerate=10)
+
+BALLISTICA = (Weapon('BALLISTICA', 10, 80, 10, critC=0.15, critX=1.5,
+  magazine=16, reload=2, firerate=3.33, chargetime=1),
+              Weapon('BALLISTICA_BURST', 2.5, 20, 2.5, critC=0.0375, critX=1.5,
+                magazine=4, reload=2, firerate=11.43, bullets=4))
+RAKA_BALLISTICA = (Weapon('RAKA_BALLISTICA', 15, 270, 15, critC=0.2, critX=2,
+  magazine=20, reload=2, firerate=3.33, chargetime=1),
+                    Weapon('RAKA_BALLISTICA_BURST', 3.75, 67.5, 3.75, critC=0.05, critX=1.5,
+                      magazine=5, reload=2, firerate=11.43, bullets=4))
+BALLISTICA_PRIME = Weapon('BALLISTICA_PRIME', 3.8, 41.8, 30.4, critC=0.2, critX=2,
+  magazine=8, reload=1.2, firerate=3.33, chargetime=0.8, bullets=4)
+
+BOLTO = Weapon('BOLTO', imp=4, punc=36, critC=0.16, critX=2.4,
+  magazine=15, reload=1.3, firerate=6.83)
+
+
+
+
+
+
+
+

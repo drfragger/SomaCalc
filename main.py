@@ -14,9 +14,13 @@ with open('weapon_data.pickle', 'rb') as f:
 
 
 
-brat_p = wep['BRATON_PRIME']
+opt = wep['OPTICOR']
+
+modlist = (mc.Serration, mc.HighVoltage)
+
+opt.applymod(modlist)
 
 hevy = enem['O_HEAVY_GUNNER']
 
-plot_damage(brat_p, hevy)
+print(opt.dmg)
 
