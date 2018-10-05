@@ -1,11 +1,9 @@
-from bodytypes import *
-from weaponclass import Weapon
-from enemyclass import Enemy
+from wf_class_defs import Weapon, Enemy
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_damage(wep_1:Weapon, victim, wep_2:Weapon=None, level_range=100):
+def plot_damage(wep_1:Weapon, victim, wep_2:Weapon=None, level_range=160, live=True):
     
     domain = np.arange(victim.baseprops['baselevel'], level_range, 0.01)
     
@@ -51,4 +49,8 @@ def plot_damage(wep_1:Weapon, victim, wep_2:Weapon=None, level_range=100):
     plt.xlabel("Enemy Level")
     plt.legend()
     plt.grid(True)
-    plt.show()    
+
+    if live:
+      plt.show()
+    else:
+      plt.savefig('graph_image.png')

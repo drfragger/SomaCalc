@@ -1,26 +1,18 @@
-from bodytypes import *
-from weaponclass import Weapon
-from enemyclass import Enemy
+from wf_class_defs import Weapon, Enemy
 from graph_function import plot_damage
 import modclass as mc
-import pickle
+import enemy_objects, weapon_objects
 
 
-with open('enemy_data.pickle', 'rb') as f:
-    enem = pickle.load(f)
+WEAPONS = weapon_objects.init()  
 
-with open('weapon_data.pickle', 'rb') as f:
-    wep = pickle.load(f)
+ENEMIES = enemy_objects.init()
 
 
+lancer = ENEMIES['G_LANCER']
 
-opt = wep['OPTICOR']
+baza = WEAPONS['BAZA']
 
-modlist = (mc.Serration, mc.HighVoltage)
+plot_damage(baza, lancer)
 
-opt.applymod(modlist)
-
-hevy = enem['O_HEAVY_GUNNER']
-
-print(opt.dmg)
 

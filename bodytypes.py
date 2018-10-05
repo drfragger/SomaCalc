@@ -22,8 +22,22 @@ Sinew = Body(punc=1.25, cld=1.25, blst=0.5, rad=1.5)
 
 
 
-__all__ = ['Body', 'Generic', 
-           'CFlesh', 'Ferrite', 'Alloy', 'Machinery',
-           'Flesh', 'Shield', 'PShield', 'Robotic',
-           'Infested', 'IFlesh', 'Fossil', 'Sinew']
+def init():
+  return {
+    'Generic': Generic,
+    'CFlesh': CFlesh,
+    'Ferrite': Ferrite,
+    'Alloy': Alloy,
+    'Machinery': Machinery,
+    'Flesh': Flesh,
+    'Shield': Shield,
+    'PShield': PShield,
+    'Robotic': Robotic,
+    'Infested': Infested,
+    'IFlesh': IFlesh,
+    'Fossil': Fossil,
+    'Sinew': Sinew
+  }
+
+
            
